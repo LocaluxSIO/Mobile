@@ -1,0 +1,119 @@
+<ion-header translucent={true}>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Reserve</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content fullscreen class="component-content">
+
+  <br>
+  <ion-item id="open-modal">
+    <ion-avatar  slot="start">
+      <ion-img src="{{voitureselect.image}}"></ion-img>
+    </ion-avatar>
+    <ion-label>
+      <h2>{{voitureselect.marque}}</h2>
+      <p>{{voitureselect.nom}}</p>
+    </ion-label>
+  </ion-item>
+  <br>
+  <ion-item id="open-modal2">
+    <ion-avatar  slot="start">
+      <ion-img src="{{chauffeurselect.image}}"></ion-img>
+    </ion-avatar>
+    <ion-label>
+      <h2>{{chauffeurselect.nom}}</h2>
+      <p>{{chauffeurselect.prenom}}</p>
+    </ion-label>
+  </ion-item>
+
+
+  <ion-list inset={true}>
+    <ion-item>
+      <ion-label>
+        Destination : {{destination}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-list inset={true}>
+    <ion-accordion-group>
+      <ion-accordion value="start">
+        <ion-item lines="inset" slot="header">
+          <ion-label>Starts</ion-label>
+          <ion-datetime-button slot="end" datetime="start-date"></ion-datetime-button>
+        </ion-item>
+        <ion-datetime id="start-date" slot="content" presentation="date" [(ngModel)]="startdate"></ion-datetime>
+      </ion-accordion>
+      <ion-accordion value="end">
+        <ion-item lines="inset" slot="header">
+          <ion-label>Ends</ion-label>
+          <ion-datetime-button slot="end" datetime="end-date"></ion-datetime-button>
+        </ion-item>
+        <ion-datetime id="end-date" slot="content" presentation="date" [(ngModel)]="enddate"></ion-datetime>
+      </ion-accordion>
+    </ion-accordion-group>
+  </ion-list>
+
+  <ion-button expand="block" (click)="reserverlocation()">Reserver la location</ion-button>
+
+  <ion-modal #modal trigger="open-modal" [presentingElement]="presentingElement">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Voitures</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="modal.dismiss()">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+
+          <ion-item *ngFor ="let item of lstmodels" (click)="voiture(item)" (click)="modal.dismiss()">
+            <ion-avatar slot="start">
+              <ion-img src="{{item.image}}"></ion-img>
+            </ion-avatar>
+            <ion-label>
+              <h2>{{item.marque}}</h2>
+              <p>{{item.nom}}</p>
+            </ion-label>
+          </ion-item>
+
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <ion-modal #modal2 trigger="open-modal2" [presentingElement]="presentingElement">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Chauffeurs</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="modal2.dismiss()">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+
+          <ion-item *ngFor ="let item of lstchauffeurs" (click)="chauffeur(item)" (click)="modal2.dismiss()">
+            <ion-avatar slot="start">
+              <ion-img src="{{item.image}}"></ion-img>
+            </ion-avatar>
+            <ion-label>
+              <h2>{{item.nom}}</h2>
+              <p>{{item.prenom}}</p>
+            </ion-label>
+          </ion-item>
+
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
+
